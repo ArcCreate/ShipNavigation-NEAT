@@ -11,8 +11,10 @@ class Ship(pygame.sprite.Sprite):
         self.image = self.o
         self.rect = self.image.get_rect(center = (400, 400))
         self.driving = False
-        self.velocity = pygame.math.Vector2(0.8, 0)
+        self.velocity = pygame.math.Vector2(0, -0.1)
         self.angle = 0
+        self.rotationVelocity = 1
+        self.direction = 0
 
     #updating function for pygame
     def update(self):
@@ -22,9 +24,17 @@ class Ship(pygame.sprite.Sprite):
     #driving function
     def drive(self):
         if self.driving:
-            self.rect.center += self.velocity * 5
+            self.rect.center += self.velocity * 10  # Move in the direction of the velocity
 
     #rotates car while driving
     def rotate(self):        
-        self.image = pygame.transform.rotozoom(self.o, self.angle, 1)
+        if self.direction == 1:
+            self.angle -= self.rotationVelocity
+            self.velocity.rotate_ip(self.rotationVelocity)
+        if self.direction == -1:
+            self.angle += self.rotationVelocity
+            self.velocity.rotate_ip(-self.rotationVelocity)
+
+        self.image = pygame.transform.rotozoom(self.o, self.angle, 0.75)
+        self.rect = self.image.get_rect(center = self.rect.center)
         

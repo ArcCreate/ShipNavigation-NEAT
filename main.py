@@ -27,12 +27,20 @@ def eval_genomes():
 
         #input
         input = pygame.key.get_pressed()
-        if sum(pygame.key.get_pressed()) <= 1:
+        if sum(input) <= 1:
             ship.sprite.driving = False
+            ship.sprite.direction = 0
         
         if input[pygame.K_UP]:
             ship.sprite.driving = True
 
+        if input[pygame.K_RIGHT]:
+            ship.sprite.direction = 1
+
+        if input[pygame.K_LEFT]:
+            ship.sprite.direction = -1
+
+        # Screen drawing
         ship.draw(SCREEN)
         s = ship.sprite
         pygame.draw.rect(SCREEN, (255, 255, 255), s.rect, 2)

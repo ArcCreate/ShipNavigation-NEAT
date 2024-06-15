@@ -9,7 +9,7 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.o = pygame.image.load(os.path.join("Assets", "Ship.png"))
         self.image = self.o
-        self.rect = self.image.get_rect(center = (400, 400))
+        self.rect = self.image.get_rect(center = (800, 700))
         self.driving = False
         self.velocity = pygame.math.Vector2(0, -0.1)
         self.angle = 0

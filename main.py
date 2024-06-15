@@ -46,7 +46,7 @@ def eval_genomes(genomes, config):
 
         #collision logic
         for i, ship in enumerate(ships):
-            ge[i].fitness += 1
+            ge[i].fitness += 0.1
             if ship.sprite.play == False:
                 removeShip(i)
         
@@ -57,10 +57,10 @@ def eval_genomes(genomes, config):
 
             #action based on output
             if output[0] > 0.7:
-                ship.direction = 1
-            if output[1] > 0.7:
-                ship.direction = -1
-            if(output[0] <= 0.7 and output[1] <= 0.7):
+                ship.sprite.direction = 1
+            elif output[1] > 0.7:
+                ship.sprite.direction = -1
+            elif(output[0] <= 0.7 and output[1] <= 0.7):
                 ship.sprite.direction = 0
             
 

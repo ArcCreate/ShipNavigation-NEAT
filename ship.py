@@ -10,7 +10,7 @@ class Ship(pygame.sprite.Sprite):
         self.o = pygame.image.load(os.path.join("Assets", "Ship.png"))
         self.image = self.o
         self.rect = self.image.get_rect(center = (400, 400))
-        self.driving = False
+        #self.driving = False
         self.velocity = pygame.math.Vector2(0, -0.1)
         self.angle = 0
         self.rotationVelocity = 0.5
@@ -31,8 +31,8 @@ class Ship(pygame.sprite.Sprite):
 
     #driving function
     def drive(self):
-        if self.driving:
-            self.rect.center += self.velocity.normalize() * 1.0  # Move in the direction of the velocity
+        self.rect.center += self.velocity.normalize() * 1.0  # Move in the direction of the velocity
+            
 
     #rotates ship while driving
     def rotate(self):        

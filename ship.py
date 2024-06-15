@@ -1,5 +1,6 @@
 import math
 import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 
 class Ship(pygame.sprite.Sprite):
@@ -9,7 +10,7 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.o = pygame.image.load(os.path.join("Assets", "Ship.png"))
         self.image = self.o
-        self.rect = self.image.get_rect(center = (400, 400))
+        self.rect = self.image.get_rect(center = (200, 400))
         #self.driving = False
         self.velocity = pygame.math.Vector2(0, -0.1)
         self.angle = 0
@@ -17,9 +18,11 @@ class Ship(pygame.sprite.Sprite):
         self.direction = 0
         self.SCREEN = SCREEN
         self.play = True
+        self.radars = [] #stores a list of all the radars used by this instance of the ship
 
     #updating function for pygame
     def update(self):
+        self.radars.clear()
         self.drive()
         self.rotate()
         self.detection(-50)
@@ -28,6 +31,7 @@ class Ship(pygame.sprite.Sprite):
         self.detection(20)
         self.detection(0)
         self.collision()
+        self.collectData()
 
     #driving function
     def drive(self):
@@ -60,6 +64,9 @@ class Ship(pygame.sprite.Sprite):
         #visuals
         pygame.draw.line(self.SCREEN, (255, 255, 255, 255), self.rect.center, (x, y), 1)
         pygame.draw.circle(self.SCREEN, (255, 0, 0, 0), (x, y), 3)
+
+        distance = int(math.sqrt(math.pow(self.rect.center[0] - x, 2) + math.pow(self.rect.center[1] - y, 2)))
+        self.radars.append([angle, distance])
         
     #checking if ship is still alive or not
     def collision(self):
@@ -80,3 +87,10 @@ class Ship(pygame.sprite.Sprite):
         # Draw Collision Points
         pygame.draw.circle(self.SCREEN, (0,255, 0,0), rightPoint, 2)
         pygame.draw.circle(self.SCREEN, (0,255, 0,0), leftPoint, 2)
+
+    #gets the data from the radars for the AI
+    def collectData(self):
+        input = [0,0,0,0,0]
+        for i, radar in enumerate(self.radars):
+            input[i] = int(radar[1])
+        return input

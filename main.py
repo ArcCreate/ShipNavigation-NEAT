@@ -47,7 +47,7 @@ def eval_genomes(genomes, config):
         #collision logic
         for i, ship in enumerate(ships):
             ge[i].fitness += 1
-            if ship.sprite.play:
+            if ship.sprite.play == False:
                 removeShip(i)
         
         #inputs and outputs into NEAT

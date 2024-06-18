@@ -10,7 +10,7 @@ from ship import Ship
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-TRACK = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "Track1.png")), (SCREEN_WIDTH, SCREEN_HEIGHT))
+TRACK = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "Track4.png")), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 def eval_genomes(genomes, config):

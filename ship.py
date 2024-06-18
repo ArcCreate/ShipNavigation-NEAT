@@ -9,7 +9,7 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.o = pygame.image.load(os.path.join("Assets", "Ship.png"))
         self.image = self.o
-        self.rect = self.image.get_rect(center=(1025, 750))
+        self.rect = self.image.get_rect(center=(1050, 750))
         self.angle = 0
         self.velocity = pygame.math.Vector2(0, -1)
         self.rotationVelocity = 1
@@ -66,20 +66,27 @@ class Ship(pygame.sprite.Sprite):
 
     def collision(self):
         length = 20
+        sandColor = pygame.Color(246, 233, 183, 255)
 
         # Collision points
         rightPoint = [int(self.rect.center[0] - math.sin(math.radians(self.angle + 18)) * length),
                       int(self.rect.center[1] - math.cos(math.radians(self.angle + 18)) * length)]
         leftPoint = [int(self.rect.center[0] - math.sin(math.radians(self.angle - 18)) * length),
                      int(self.rect.center[1] - math.cos(math.radians(self.angle - 18)) * length)]
+        backRight = [int(self.rect.center[0] - math.sin(math.radians(self.angle + 162)) * length),
+                          int(self.rect.center[1] - math.cos(math.radians(self.angle + 162)) * length)]
+        backLeft = [int(self.rect.center[0] - math.sin(math.radians(self.angle - 162)) * length),
+                         int(self.rect.center[1] - math.cos(math.radians(self.angle - 162)) * length)]
 
         # If the ship is out of the track, end its life
-        if self.SCREEN.get_at(rightPoint) == pygame.Color(246, 233, 183, 255) or self.SCREEN.get_at(leftPoint) == pygame.Color(246, 233, 183, 255):
+        if self.SCREEN.get_at(rightPoint) == sandColor or self.SCREEN.get_at(leftPoint) == sandColor or self.SCREEN.get_at(backRight) == sandColor or self.SCREEN.get_at(backLeft) == sandColor:
             self.play = False
 
         # Draw Collision Points
         pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), rightPoint, 2)
         pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), leftPoint, 2)
+        pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), backRight, 2)
+        pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), backLeft, 2)
 
     def collectData(self):
         input = [0, 0, 0, 0, 0]

@@ -55,12 +55,15 @@ def eval_genomes(genomes, config):
             #input
             output = nets[i].activate(ship.sprite.collectData())
 
+            #get outputs
+            decision = output.index(max(output))
+
             #action based on output
-            if output[0] > 0.7:
+            if decision == 1:
                 ship.sprite.direction = 1
-            elif output[1] > 0.7:
+            elif decision == 2:
                 ship.sprite.direction = -1
-            elif(output[0] <= 0.7 and output[1] <= 0.7):
+            else:
                 ship.sprite.direction = 0
             
 

@@ -9,7 +9,7 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.o = pygame.image.load(os.path.join("Assets", "Ship.png"))
         self.image = self.o
-        self.rect = self.image.get_rect(center=(200, 500))
+        self.rect = self.image.get_rect(center=(1025, 750))
         self.angle = 0
         self.velocity = pygame.math.Vector2(0, -1)
         self.rotationVelocity = 1
@@ -52,7 +52,7 @@ class Ship(pygame.sprite.Sprite):
         x = int(self.rect.center[0])
         y = int(self.rect.center[1])
 
-        while not self.SCREEN.get_at((x, y)) == pygame.Color(240, 223, 137, 255) and length < 1000:
+        while not self.SCREEN.get_at((x, y)) == pygame.Color(246, 233, 183, 255) and length < 1000:
             length += 1
             x = int(self.rect.center[0] - math.sin(math.radians(self.angle + angle)) * length)
             y = int(self.rect.center[1] - math.cos(math.radians(self.angle + angle)) * length)
@@ -74,7 +74,7 @@ class Ship(pygame.sprite.Sprite):
                      int(self.rect.center[1] - math.cos(math.radians(self.angle - 18)) * length)]
 
         # If the ship is out of the track, end its life
-        if self.SCREEN.get_at(rightPoint) == pygame.Color(240, 223, 137, 255) or self.SCREEN.get_at(leftPoint) == pygame.Color(240, 223, 137, 255):
+        if self.SCREEN.get_at(rightPoint) == pygame.Color(246, 233, 183, 255) or self.SCREEN.get_at(leftPoint) == pygame.Color(246, 233, 183, 255):
             self.play = False
 
         # Draw Collision Points

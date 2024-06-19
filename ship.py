@@ -9,10 +9,10 @@ class Ship(pygame.sprite.Sprite):
         super().__init__()
         self.o = pygame.image.load(os.path.join("Assets", "Ship.png"))
         self.image = self.o
-        self.rect = self.image.get_rect(center=(1050, 750))
+        self.rect = self.image.get_rect(center=(1120, 850))
         self.angle = 0
         self.velocity = pygame.math.Vector2(0, -1)
-        self.rotationVelocity = 1
+        self.rotationVelocity = 2
         self.direction = 0
         self.SCREEN = SCREEN
         self.play = True
@@ -34,7 +34,7 @@ class Ship(pygame.sprite.Sprite):
         self.collectData()
 
     def drive(self):
-        self.rect.center += self.velocity.normalize() * 1.0  # Move in the direction of the velocity
+        self.rect.center += self.velocity.normalize() * 1.5  # Move in the direction of the velocity
 
     def rotate(self):
         if self.direction == 1:
@@ -66,6 +66,7 @@ class Ship(pygame.sprite.Sprite):
 
     def collision(self):
         length = 20
+        length2 = 26
         sandColor = pygame.Color(246, 233, 183, 255)
 
         # Collision points
@@ -73,10 +74,10 @@ class Ship(pygame.sprite.Sprite):
                       int(self.rect.center[1] - math.cos(math.radians(self.angle + 18)) * length)]
         leftPoint = [int(self.rect.center[0] - math.sin(math.radians(self.angle - 18)) * length),
                      int(self.rect.center[1] - math.cos(math.radians(self.angle - 18)) * length)]
-        backRight = [int(self.rect.center[0] - math.sin(math.radians(self.angle + 162)) * length),
-                          int(self.rect.center[1] - math.cos(math.radians(self.angle + 162)) * length)]
-        backLeft = [int(self.rect.center[0] - math.sin(math.radians(self.angle - 162)) * length),
-                         int(self.rect.center[1] - math.cos(math.radians(self.angle - 162)) * length)]
+        backLeft = [int(self.rect.center[0] - math.sin(math.radians(self.angle + 162)) * length2),
+                          int(self.rect.center[1] - math.cos(math.radians(self.angle + 162)) * length2)]
+        backRight = [int(self.rect.center[0] - math.sin(math.radians(self.angle - 162)) * length2),
+                         int(self.rect.center[1] - math.cos(math.radians(self.angle - 162)) * length2)]
 
         # If the ship is out of the track, end its life
         if self.SCREEN.get_at(rightPoint) == sandColor or self.SCREEN.get_at(leftPoint) == sandColor or self.SCREEN.get_at(backRight) == sandColor or self.SCREEN.get_at(backLeft) == sandColor:

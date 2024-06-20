@@ -12,14 +12,12 @@ class Ship(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(1120, 850))
         self.angle = 0
         self.velocity = pygame.math.Vector2(0, -1)
-        self.rotationVelocity = 2
+        self.rotationVelocity = 3
         self.direction = 0
         self.SCREEN = SCREEN
         self.play = True
+        self.color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
         self.radars = []  # stores a list of all the radars used by this instance of the ship
-
-        #self.image = pygame.transform.rotozoom(self.o, 30, 0.75)
-        #self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self):
         self.radars.clear()
@@ -34,7 +32,7 @@ class Ship(pygame.sprite.Sprite):
         self.collectData()
 
     def drive(self):
-        self.rect.center += self.velocity.normalize() * 1.5  # Move in the direction of the velocity
+        self.rect.center += self.velocity.normalize() * 2  # Move in the direction of the velocity
 
     def rotate(self):
         if self.direction == 1:
@@ -58,7 +56,7 @@ class Ship(pygame.sprite.Sprite):
             y = int(self.rect.center[1] - math.cos(math.radians(self.angle + angle)) * length)
 
         # Visuals
-        pygame.draw.line(self.SCREEN, (255, 255, 255, 255), self.rect.center, (x, y), 1)
+        pygame.draw.line(self.SCREEN, self.color, self.rect.center, (x, y), 1)
         #pygame.draw.circle(self.SCREEN, (255, 0, 0, 0), (x, y), 3)
 
         distance = int(math.sqrt(math.pow(self.rect.center[0] - x, 2) + math.pow(self.rect.center[1] - y, 2)))
@@ -84,10 +82,10 @@ class Ship(pygame.sprite.Sprite):
             self.play = False
 
         # Draw Collision Points
-        pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), rightPoint, 2)
-        pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), leftPoint, 2)
-        pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), backRight, 2)
-        pygame.draw.circle(self.SCREEN, (0, 255, 0, 0), backLeft, 2)
+        pygame.draw.circle(self.SCREEN, self.color, rightPoint, 2)
+        pygame.draw.circle(self.SCREEN, self.color, leftPoint, 2)
+        pygame.draw.circle(self.SCREEN, self.color, backRight, 2)
+        pygame.draw.circle(self.SCREEN, self.color, backLeft, 2)
 
     def collectData(self):
         input = [0, 0, 0, 0, 0]
